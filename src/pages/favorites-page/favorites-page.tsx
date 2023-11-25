@@ -1,7 +1,12 @@
+import { Helmet } from "react-helmet-async"
+
 function FavoritesPage() {
     return (
         <div className="page__favorites-container container">
             <section className="favorites">
+                <Helmet>
+                    <title>6 cities. Сохранённое</title>
+                </Helmet>
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
                     <li className="favorites__locations-items">

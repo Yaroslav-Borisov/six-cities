@@ -7,12 +7,19 @@ import OfferPage from "../../pages/offer-page/offer-page";
 import NotFoundPage from "../../pages/not-found-page/not-found-page";
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
+import { Offer } from '../../types/offer';
+import { User } from '../../types/user';
+import { Review } from '../../types/review';
+import { reviews } from '../../mocks/reviews';
 
 type AppProps = {
   placesCount: number;
+  user: User;
+  offers: Offer[];
+  reviews: Review[];
 }
 
-function App({ placesCount }: AppProps): JSX.Element {
+function App({ placesCount, user, offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -35,7 +42,7 @@ function App({ placesCount }: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage />}
+            element={<OfferPage offers={offers} reviews={reviews} user={user}/>}
           />
           <Route
             path="*"

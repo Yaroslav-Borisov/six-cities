@@ -2,6 +2,8 @@ export const Setting = {
     PlacesCount: 5,
 }
 
+export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf']
+
 export enum AppRoute {
     Main = '/',
     Login = '/login',

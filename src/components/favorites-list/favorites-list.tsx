@@ -7,11 +7,10 @@ type FavoritesListProps = {
 }
 
 function FavoritesList({ offers }: FavoritesListProps): JSX.Element {
-
     return (
         <ul className="favorites__list">
-            {cityNames.map((cityName) => (
-                <FavoritesItem offers={offers} cityName={cityName} />
+            {cityNames.map((cityName, index) => (
+                <FavoritesItem offers={offers} cityName={cityName} key={index} />
             ))}
         </ul>
     )

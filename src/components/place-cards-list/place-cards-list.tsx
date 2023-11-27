@@ -9,8 +9,10 @@ type PlacesListProps = {
 function PlacesList({ offers, parentClass }: PlacesListProps): JSX.Element {
 
     return (<>
-        {offers.map((offer) => (
-            <PlaceCard offer={offer} parentClass={parentClass} key={offer.id} />
+        {offers.map((offer, index) => (
+
+            <PlaceCard offer={offer} parentClass={parentClass} key={index}/>
+
         ))}
     </>
     )

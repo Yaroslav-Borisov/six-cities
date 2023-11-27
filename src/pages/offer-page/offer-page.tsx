@@ -16,6 +16,7 @@ function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
     const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offers[0]
     const { email } = user
 
+
     return (
         <div className="page">
             <Helmet>
@@ -64,9 +65,9 @@ function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
                 <section className="offer">
                     <div className="offer__gallery-container container">
                         <div className="offer__gallery">
-                            {images.map((imageSrc) => {
+                            {images.map((imageSrc, index) => {
                                 return (
-                                    <div className="offer__image-wrapper">
+                                    <div className="offer__image-wrapper" key={index}>
                                         <img
                                             className="offer__image"
                                             src={imageSrc}
@@ -118,9 +119,9 @@ function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
                             <div className="offer__inside">
                                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                                 <ul className="offer__inside-list">
-                                    {goods.map((good) => {
+                                    {goods.map((good, index) => {
                                         return (
-                                            <li className="offer__inside-item">{good}</li>
+                                            <li className="offer__inside-item" key={index}>{good}</li>
                                         )
                                     })}
                                 </ul>
@@ -155,9 +156,9 @@ function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
                                 </h2>
                                 <ul className="reviews__list">
 
-                                    {reviews.map((review) => {
+                                    {reviews.map((review, index) => {
                                         return (
-                                            <li className="reviews__item">
+                                            <li className="reviews__item" key={index}>
                                                 <div className="reviews__user user">
                                                     <div className="reviews__avatar-wrapper user__avatar-wrapper">
                                                         <img

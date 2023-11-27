@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async"
 import { Offer } from "../../types/offer";
 import { User } from "../../types/user";
 import { Review } from "../../types/review";
-import NearPlacesList from "../../components/near-places-list/near-places-list";
+import PlacesList from "../../components/place-cards-list/place-cards-list";
 
 type OfferPageProps = {
     user: User;
@@ -13,7 +13,7 @@ type OfferPageProps = {
 
 
 function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
-    const { images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offers[0]
+    const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offers[0]
     const { email } = user
 
     return (
@@ -86,7 +86,7 @@ function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
                                 <h1 className="offer__name">
                                     {title}
                                 </h1>
-                                <button className="offer__bookmark-button button" type="button">
+                                <button className={isFavorite ? 'offer__bookmark-button--active offer__bookmark-button button' : 'offer__bookmark-button button'} type="button">
                                     <svg className="offer__bookmark-icon" width="31" height="33">
                                         <use xlinkHref="#icon-bookmark"></use>
                                     </svg>
@@ -308,7 +308,14 @@ function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
                     <section className="offer__map map"></section>
                 </section>
                 <div className="container">
-                    <NearPlacesList offers={offers} />
+                    <section className="near-places places">
+                        <h2 className="near-places__title">
+                            Other places in the neighbourhood
+                        </h2>
+                        <div className="near-places__list places__list">
+                            <PlacesList offers={offers.slice(1, offers.length)} parentClass={'near-places'}/>
+                        </div>
+                    </section>
                 </div>
             </main>
         </div>

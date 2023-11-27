@@ -10,7 +10,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Offer } from '../../types/offer';
 import { User } from '../../types/user';
 import { Review } from '../../types/review';
-import { reviews } from '../../mocks/reviews';
 
 type AppProps = {
   placesCount: number;
@@ -19,14 +18,14 @@ type AppProps = {
   reviews: Review[];
 }
 
-function App({ placesCount, user, offers }: AppProps): JSX.Element {
+function App({ placesCount, user, offers, reviews }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage placesCount={placesCount} />}
+            element={<MainPage placesCount={placesCount} offers={offers} />}
           />
           <Route
             path={AppRoute.Login}

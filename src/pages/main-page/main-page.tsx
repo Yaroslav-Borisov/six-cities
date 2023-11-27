@@ -1,11 +1,13 @@
 import { Helmet } from "react-helmet-async";
-import PlaceCard from "../../components/place-card/place-card";
+import PlacesList from "../../components/place-cards-list/place-cards-list";
+import { Offer } from "../../types/offer";
 
 type MainPageProps = {
   placesCount: number;
+  offers: Offer[];
 }
 
-function MainPage({ placesCount }: MainPageProps): JSX.Element {
+function MainPage({ placesCount, offers }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -101,11 +103,7 @@ function MainPage({ placesCount }: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
+                <PlacesList offers={offers} parentClass={'cities'} />
               </div>
             </section>
             <div className="cities__right-section">

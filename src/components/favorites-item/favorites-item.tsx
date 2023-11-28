@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Offer } from "../../types/offer";
 import FavoritesCard from "../favorites-card/favorites-card";
 
@@ -7,6 +8,12 @@ type FavoritesItemProps = {
 }
 
 function FavoritesItem({ offers, cityName }: FavoritesItemProps): JSX.Element {
+
+    const [, setActiveOfferId] = useState(0)
+
+    const handleOfferMouseOver = (id: number) => setActiveOfferId(id)
+    const handleOfferMouseLeave = () => setActiveOfferId(0)
+
     return (
 
         <>
@@ -21,7 +28,12 @@ function FavoritesItem({ offers, cityName }: FavoritesItemProps): JSX.Element {
                     </div>
                     <div className="favorites__places">
                         {offers.filter((offer) => offer.city.name === cityName && offer.isFavorite === true).map((offer) => (
-                            <FavoritesCard offer={offer} key={offer.id} />
+                            <FavoritesCard
+                                offer={offer}
+                                key={offer.id}
+                                onOfferMouseOver={handleOfferMouseOver}
+                                onOfferMouseLeave={handleOfferMouseLeave}
+                            />
                         ))}
 
                     </div>

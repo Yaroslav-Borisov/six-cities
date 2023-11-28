@@ -1,19 +1,27 @@
+import { Link, generatePath } from "react-router-dom";
 import { Offer } from "../../types/offer";
+import { AppRoute } from "../../const";
 
 type FavoritesCardProps = {
     offer: Offer,
+    onOfferMouseOver?: (id: number) => void,
+    onOfferMouseLeave?: () => void,
 }
 
-function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
-    const { previewImage, title, rating, type, price, isFavorite, isPremium } = offer
+function FavoritesCard({ offer, onOfferMouseOver, onOfferMouseLeave }: FavoritesCardProps): JSX.Element {
+    const { id, previewImage, title, rating, type, price, isFavorite, isPremium } = offer
 
     return (
-        <article className="favorites__card place-card">
+        <article
+            className="favorites__card place-card"
+            onMouseOver={() => onOfferMouseOver?.(id)}
+            onMouseLeave={() => onOfferMouseLeave?.()}
+        >
             {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
             <div className="favorites__image-wrapper place-card__image-wrapper">
-                <a href="#">
+                <Link to={generatePath(AppRoute.Offer, { id: `${id}` })}>
                     <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image" />
-                </a>
+                </Link>
             </div>
             <div className="favorites__card-info place-card__info">
                 <div className="place-card__price-wrapper">
@@ -35,7 +43,9 @@ function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
                     </div>
                 </div>
                 <h2 className="place-card__name">
-                    <a href="#">{title}</a>
+                    <Link to={generatePath(AppRoute.Offer, { id: `${id}` })}>
+                        {title}
+                    </Link>
                 </h2>
                 <p className="place-card__type">{type}</p>
             </div>

@@ -3,6 +3,7 @@ import { Offer } from "../../types/offer";
 import { User } from "../../types/user";
 import { Review } from "../../types/review";
 import PlacesList from "../../components/place-cards-list/place-cards-list";
+import { useParams } from "react-router-dom";
 
 type OfferPageProps = {
     user: User;
@@ -13,8 +14,16 @@ type OfferPageProps = {
 
 
 function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
-    const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = offers[0]
+    const params = useParams()
+    const offerId = Number(params.id)
+
     const { email } = user
+    const currentOffer = offers.filter((offer) => offer.id === offerId)[0]
+    const { images, title, isPremium, rating, price, isFavorite, type, bedrooms, maxAdults, goods, host, description } = currentOffer
+
+    const neighbourhood = offers
+        .filter((offer) => offer.city.name === currentOffer.city.name)
+        .filter((offer) => offer.id !== currentOffer.id);
 
 
     return (
@@ -47,7 +56,7 @@ function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
                                         <span className="header__user-name user__name">
                                             {email}
                                         </span>
-                                        <span className="header__favorite-count">3</span>
+                                        <span className="header__favorite-count">{offers.filter(offer => offer.isFavorite === true).length}</span>
                                     </a>
                                 </li>
                                 <li className="header__nav-item">
@@ -96,7 +105,7 @@ function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
                             </div>
                             <div className="offer__rating rating">
                                 <div className="offer__stars rating__stars">
-                                    <span style={{ width: '80%' }}></span>
+                                    <span style={{ width: `${rating * 100 / 5}%` }}></span>
                                     <span className="visually-hidden">Rating</span>
                                 </div>
                                 <span className="offer__rating-value rating__value">{rating}</span>
@@ -314,7 +323,7 @@ function OfferPage({ user, offers, reviews }: OfferPageProps): JSX.Element {
                             Other places in the neighbourhood
                         </h2>
                         <div className="near-places__list places__list">
-                            <PlacesList offers={offers.slice(1, offers.length)} parentClass={'near-places'}/>
+                            <PlacesList offers={neighbourhood} parentClass={'near-places'} />
                         </div>
                     </section>
                 </div>
